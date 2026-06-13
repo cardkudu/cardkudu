@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Card Kudu now — A game for Sri Lankans with no shame | Pre-Order Your Pack</title>
+<meta name="description" content="Order Card Kudu, the outrageous party card game for Sri Lankans with no shame. Get your pack for Rs. 4,390">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Norwester';
+  src: url('https://cdn.jsdelivr.net/npm/norwester-font@1.0.1/norwester.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/norwester-font@1.0.1/norwester.woff') format('woff');
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --maroon: #8B1C2C; --maroon-dark: #5C1019; --maroon-mid: #7A1825;
+  --orange: #D96B0A; --orange-bright: #F08020;
+  --gold-bright: #F0B020; --teal: #1A6B58;
+  --cream: #FAF5EC; --dark: #1C0A08;
+  --heading: 'Norwester', 'Bebas Neue', 'Impact', sans-serif;
+  --body: 'DM Sans', sans-serif;
+}
+html, body { width:100%; overflow-x:hidden; }
+body { font-family: var(--body); background: var(--cream); color: var(--dark); overflow-x: hidden; }
+
+/* ---- Nav / Logo (matches home page) ---- */
+.ck-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+.ck-bars { display: flex; gap: 3px; align-items: stretch; }
+.ck-bar { width: 7px; border-radius: 1.5px; }
+.ck-bar-gold { background: #F0B020; }
+.ck-bar-teal { background: #1A6B58; }
+.ck-wordmark { display: flex; flex-direction: column; line-height: 1; font-family: var(--heading); color: #fff; letter-spacing: 2.5px; font-size: 1.1rem; }
+
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 3rem; background: var(--maroon-dark); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid rgba(212,146,10,0.25); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold-bright); }
+.nav-cta { background: var(--gold-bright) !important; color: var(--maroon-dark) !important; padding: 0.45rem 1.2rem !important; border-radius: 3px; font-weight: 800 !important; }
+
+.brand-logo { height: 72px; display: flex; align-items: center; justify-content: center; line-height: 0; }
+.brand-logo svg { height: 100%; width: auto; display: block; overflow: visible; }
+@media (max-width: 768px) { .brand-logo { height: 60px; } }
+
+/* ---- Page header band ---- */
+.page-hero { background: var(--maroon-dark); color: #fff; padding: 4rem 3rem 3.5rem; text-align: center; position: relative; overflow: hidden; }
+.page-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-bright), var(--orange-bright), var(--teal)); }
+.page-hero .section-tag { display: block; }
+.page-hero h1 { font-family: var(--heading); font-size: 4rem; line-height: 1; letter-spacing: 2px; margin-bottom: 1rem; }
+.page-hero h1 .gold { color: var(--gold-bright); }
+.page-hero p { color: rgba(255,255,255,0.7); line-height: 1.8; max-width: 620px; margin: 0 auto; font-size: 1rem; }
+
+.section-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem; display: block; }
+.section-tag.light { color: var(--gold-bright); }
+
+/* ---- Order content ---- */
+.content { max-width: 1200px; margin: -10px auto 60px; padding: 0 20px; position: relative; z-index: 2; }
+.layout { display: grid; grid-template-columns: 380px 1fr; gap: 30px; }
+.card { background: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,.08); border: 1px solid rgba(124,29,43,0.08); }
+
+.summary { background: var(--maroon-dark); color: #fff; border: none; position: relative; overflow: hidden; }
+.summary::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-bright), var(--orange-bright), var(--teal)); }
+.summary h2 { font-family: var(--heading); letter-spacing: 1px; font-size: 1.4rem; margin-bottom: 1rem; }
+.price-label-s { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.3rem; display: block; }
+.price { font-size: 3rem; color: var(--gold-bright); font-family: var(--heading); line-height: 1; }
+.price-incl { font-size: 0.72rem; color: rgba(255,255,255,0.45); margin-top: 0.4rem; }
+
+label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.85rem; color: var(--maroon-dark); }
+.summary label { color: rgba(255,255,255,0.85); }
+input, textarea, select {
+  width: 100%; padding: 14px; border: 1px solid rgba(124,29,43,0.15);
+  border-radius: 6px; margin-bottom: 18px; font-family: var(--body); font-size: 0.92rem; background: var(--cream);
+}
+.summary select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+.summary select option { color: var(--dark); }
+textarea { min-height: 120px; resize: vertical; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+.btn { background: var(--gold-bright); color: var(--maroon-dark); border: none; padding: 16px; width: 100%; font-weight: 800; border-radius: 4px; font-size: 0.95rem; cursor: pointer; transition: background 0.15s, transform 0.1s; letter-spacing: 0.5px; }
+.btn:hover { background: #FFD060; transform: translateY(-2px); }
+
+.notice { background: rgba(240,176,32,0.12); border-left: 4px solid var(--gold-bright); padding: 14px 16px; margin-bottom: 20px; border-radius: 4px; font-size: 0.9rem; color: #5A3A25; }
+
+.status { margin-top: 20px; line-height: 1.9; font-size: 0.85rem; color: rgba(255,255,255,0.85); }
+.status div { margin-bottom: 6px; }
+.status .tick { color: var(--gold-bright); font-weight: 800; margin-right: 6px; }
+
+.status-card h3 { font-family: var(--heading); letter-spacing: 1px; color: var(--maroon-dark); font-size: 1.2rem; margin-bottom: 12px; }
+.status-card p { margin-top: 10px; line-height: 1.8; font-size: 0.9rem; color: #6A4A35; }
+
+.order-card h2 { font-family: var(--heading); letter-spacing: 1px; color: var(--maroon-dark); font-size: 1.6rem; margin-bottom: 20px; }
+
+/* ---- Footer (matches home page) ---- */
+.disclaimer { background: var(--maroon-mid); padding: 1.5rem 3rem; text-align: center; }
+.disclaimer p { font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.6; font-style: italic; max-width: 600px; margin: 0 auto; }
+
+footer { background: var(--maroon-dark); padding: 1.8rem 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); }
+.footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.72rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold-bright); }
+
+@media(max-width:900px){
+  nav { padding: 1rem 1.25rem; flex-wrap: wrap; gap: 0.75rem; }
+  .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; font-size: 0.75rem; }
+  .page-hero { padding: 2.5rem 1.25rem 3rem; }
+  .page-hero h1 { font-size: 2.6rem; }
+  .layout, .row { grid-template-columns: 1fr; }
+  .content { margin-top: -30px; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem 1.25rem; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="ck-logo" href="index.html">
+<div class="brand-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" zoomAndPan="magnify" viewBox="0 0 150 149.999998" height="200" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><g/><clipPath id="695e955a71"><path d="M 0.164062 36.609375 L 6.941406 36.609375 L 6.941406 114.308594 L 0.164062 114.308594 Z M 0.164062 36.609375 " clip-rule="nonzero"/></clipPath><clipPath id="1afcb3b7e0"><path d="M 0.164062 0.609375 L 6.941406 0.609375 L 6.941406 78.308594 L 0.164062 78.308594 Z M 0.164062 0.609375 " clip-rule="nonzero"/></clipPath><clipPath id="341e59d190"><rect x="0" width="7" y="0" height="79"/></clipPath><clipPath id="04c13d0a60"><path d="M 5.578125 36.609375 L 12.351562 36.609375 L 12.351562 114.308594 L 5.578125 114.308594 Z M 5.578125 36.609375 " clip-rule="nonzero"/></clipPath><clipPath id="093b19b918"><path d="M 0.578125 0.609375 L 7.351562 0.609375 L 7.351562 78.308594 L 0.578125 78.308594 Z M 0.578125 0.609375 " clip-rule="nonzero"/></clipPath><clipPath id="6533981b5f"><rect x="0" width="8" y="0" height="79"/></clipPath><clipPath id="613d45ef5b"><path d="M 11.671875 36.609375 L 18.445312 36.609375 L 18.445312 114.308594 L 11.671875 114.308594 Z M 11.671875 36.609375 " clip-rule="nonzero"/></clipPath><clipPath id="229011547f"><path d="M 0.671875 0.609375 L 7.445312 0.609375 L 7.445312 78.308594 L 0.671875 78.308594 Z M 0.671875 0.609375 " clip-rule="nonzero"/></clipPath><clipPath id="e4c929029b"><rect x="0" width="8" y="0" height="79"/></clipPath><clipPath id="0b19818a56"><rect x="0" width="147" y="0" height="127"/></clipPath></defs><g transform="matrix(1, 0, 0, 1, 3, 11)"><g clip-path="url(#0b19818a56)"><g fill="#ffffff" fill-opacity="1"><g transform="translate(20.139556, 59.934911)"><g><path d="M 26.625 -38.734375 L 26.625 -32.359375 C 26.625 -31.722656 26.3125 -31.40625 25.6875 -31.40625 L 19.78125 -31.40625 C 19.15625 -31.40625 18.84375 -31.722656 18.84375 -32.359375 L 18.84375 -37.078125 C 18.84375 -38.648438 18.050781 -39.4375 16.46875 -39.4375 L 13.40625 -39.4375 C 11.832031 -39.4375 11.046875 -38.648438 11.046875 -37.078125 L 11.046875 -10.15625 C 11.046875 -8.582031 11.832031 -7.796875 13.40625 -7.796875 L 16.46875 -7.796875 C 18.050781 -7.796875 18.84375 -8.582031 18.84375 -10.15625 L 18.84375 -14.875 C 18.84375 -15.507812 19.15625 -15.828125 19.78125 -15.828125 L 25.6875 -15.828125 C 26.3125 -15.828125 26.625 -15.507812 26.625 -14.875 L 26.625 -8.5 C 26.625 -5.75 25.894531 -3.644531 24.4375 -2.1875 C 22.988281 -0.726562 20.882812 0 18.125 0 L 11.515625 0 C 8.753906 0 6.632812 -0.726562 5.15625 -2.1875 C 3.6875 -3.644531 2.953125 -5.75 2.953125 -8.5 L 2.953125 -38.734375 C 2.953125 -41.523438 3.6875 -43.640625 5.15625 -45.078125 C 6.632812 -46.515625 8.753906 -47.234375 11.515625 -47.234375 L 18.125 -47.234375 C 20.882812 -47.234375 22.988281 -46.515625 24.4375 -45.078125 C 25.894531 -43.640625 26.625 -41.523438 26.625 -38.734375 Z M 26.625 -38.734375 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(49.132908, 59.934911)"><g><path d="M 31.40625 0 L 25.15625 0 C 24.644531 0 24.328125 -0.273438 24.203125 -0.828125 L 22.5625 -9.453125 L 12.046875 -9.453125 L 10.453125 -0.828125 C 10.335938 -0.273438 10.019531 0 9.5 0 L 3.1875 0 C 2.476562 0 2.222656 -0.332031 2.421875 -1 L 12.21875 -46.40625 C 12.34375 -46.957031 12.675781 -47.234375 13.21875 -47.234375 L 21.4375 -47.234375 C 21.988281 -47.234375 22.320312 -46.957031 22.4375 -46.40625 L 32.234375 -1 C 32.359375 -0.332031 32.082031 0 31.40625 0 Z M 21.078125 -16.296875 L 17.296875 -36.90625 L 13.515625 -16.296875 Z M 21.078125 -16.296875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(83.735995, 59.934911)"><g><path d="M 27.21875 -38.734375 L 27.21875 -24.328125 C 27.21875 -20.390625 25.78125 -17.789062 22.90625 -16.53125 L 26.984375 -1.0625 C 27.179688 -0.351562 26.90625 0 26.15625 0 L 20.015625 0 C 19.460938 0 19.128906 -0.273438 19.015625 -0.828125 L 15.0625 -15.828125 L 10.984375 -15.828125 L 10.984375 -0.9375 C 10.984375 -0.3125 10.664062 0 10.03125 0 L 3.890625 0 C 3.265625 0 2.953125 -0.3125 2.953125 -0.9375 L 2.953125 -46.296875 C 2.953125 -46.921875 3.265625 -47.234375 3.890625 -47.234375 L 18.71875 -47.234375 C 21.507812 -47.234375 23.625 -46.515625 25.0625 -45.078125 C 26.5 -43.640625 27.21875 -41.523438 27.21875 -38.734375 Z M 10.984375 -23.625 L 16.828125 -23.625 C 18.398438 -23.625 19.1875 -24.410156 19.1875 -25.984375 L 19.1875 -37.078125 C 19.1875 -38.648438 18.398438 -39.4375 16.828125 -39.4375 L 10.984375 -39.4375 Z M 10.984375 -23.625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(113.910365, 59.934911)"><g><path d="M 2.953125 -0.9375 L 2.953125 -46.296875 C 2.953125 -46.921875 3.265625 -47.234375 3.890625 -47.234375 L 18.0625 -47.234375 C 20.863281 -47.234375 22.984375 -46.503906 24.421875 -45.046875 C 25.859375 -43.597656 26.578125 -41.472656 26.578125 -38.671875 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 3.890625 0 C 3.265625 0 2.953125 -0.3125 2.953125 -0.9375 Z M 10.984375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -37.015625 C 18.78125 -38.628906 17.992188 -39.4375 16.421875 -39.4375 L 10.984375 -39.4375 Z M 10.984375 -7.796875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(143.447187, 59.934911)"><g/></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(20.139556, 114.136067)"><g><path d="M 28.21875 0 L 21.96875 0 C 21.300781 0 20.847656 -0.296875 20.609375 -0.890625 L 13.171875 -18.421875 L 10.984375 -14.234375 L 10.984375 -1.1875 C 10.984375 -0.394531 10.585938 0 9.796875 0 L 4.140625 0 C 3.347656 0 2.953125 -0.394531 2.953125 -1.1875 L 2.953125 -46.0625 C 2.953125 -46.84375 3.347656 -47.234375 4.140625 -47.234375 L 9.796875 -47.234375 C 10.585938 -47.234375 10.984375 -46.84375 10.984375 -46.0625 L 10.984375 -27.75 L 20.078125 -46.359375 C 20.390625 -46.941406 20.84375 -47.234375 21.4375 -47.234375 L 27.640625 -47.234375 C 28.066406 -47.234375 28.359375 -47.101562 28.515625 -46.84375 C 28.671875 -46.59375 28.648438 -46.253906 28.453125 -45.828125 L 18.421875 -25.21875 L 29.109375 -1.359375 C 29.304688 -0.960938 29.328125 -0.632812 29.171875 -0.375 C 29.015625 -0.125 28.695312 0 28.21875 0 Z M 28.21875 0 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(51.790179, 114.136067)"><g><path d="M 19.953125 -47.234375 L 25.390625 -47.234375 C 25.703125 -47.234375 25.976562 -47.113281 26.21875 -46.875 C 26.457031 -46.644531 26.578125 -46.375 26.578125 -46.0625 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 11.453125 0 C 8.703125 0 6.597656 -0.726562 5.140625 -2.1875 C 3.679688 -3.644531 2.953125 -5.75 2.953125 -8.5 L 2.953125 -46.0625 C 2.953125 -46.375 3.066406 -46.644531 3.296875 -46.875 C 3.535156 -47.113281 3.816406 -47.234375 4.140625 -47.234375 L 9.796875 -47.234375 C 10.117188 -47.234375 10.394531 -47.113281 10.625 -46.875 C 10.863281 -46.644531 10.984375 -46.375 10.984375 -46.0625 L 10.984375 -10.15625 C 10.984375 -8.582031 11.769531 -7.796875 13.34375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -46.0625 C 18.78125 -46.375 18.894531 -46.644531 19.125 -46.875 C 19.363281 -47.113281 19.640625 -47.234375 19.953125 -47.234375 Z M 19.953125 -47.234375 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(81.31501, 114.136067)"><g><path d="M 2.953125 -0.9375 L 2.953125 -46.296875 C 2.953125 -46.921875 3.265625 -47.234375 3.890625 -47.234375 L 18.0625 -47.234375 C 20.863281 -47.234375 22.984375 -46.503906 24.421875 -45.046875 C 25.859375 -43.597656 26.578125 -41.472656 26.578125 -38.671875 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 3.890625 0 C 3.265625 0 2.953125 -0.3125 2.953125 -0.9375 Z M 10.984375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -37.015625 C 18.78125 -38.628906 17.992188 -39.4375 16.421875 -39.4375 L 10.984375 -39.4375 Z M 10.984375 -7.796875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(110.83984, 114.136067)"><g><path d="M 19.953125 -47.234375 L 25.390625 -47.234375 C 25.703125 -47.234375 25.976562 -47.113281 26.21875 -46.875 C 26.457031 -46.644531 26.578125 -46.375 26.578125 -46.0625 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 11.453125 0 C 8.703125 0 6.597656 -0.726562 5.140625 -2.1875 C 3.679688 -3.644531 2.953125 -5.75 2.953125 -8.5 L 2.953125 -46.0625 C 2.953125 -46.375 3.066406 -46.644531 3.296875 -46.875 C 3.535156 -47.113281 3.816406 -47.234375 4.140625 -47.234375 L 9.796875 -47.234375 C 10.117188 -47.234375 10.394531 -47.113281 10.625 -46.875 C 10.863281 -46.644531 10.984375 -46.375 10.984375 -46.0625 L 10.984375 -10.15625 C 10.984375 -8.582031 11.769531 -7.796875 13.34375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -46.0625 C 18.78125 -46.375 18.894531 -46.644531 19.125 -46.875 C 19.363281 -47.113281 19.640625 -47.234375 19.953125 -47.234375 Z M 19.953125 -47.234375 "/></g></g></g><g clip-path="url(#695e955a71)"><g transform="matrix(1, 0, 0, 1, 0, 36)"><g clip-path="url(#341e59d190)"><g clip-path="url(#1afcb3b7e0)"><path fill="#f7b718" d="M 0.164062 0.609375 L 6.941406 0.609375 L 6.941406 78.3125 L 0.164062 78.3125 Z M 0.164062 0.609375 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g clip-path="url(#04c13d0a60)"><g transform="matrix(1, 0, 0, 1, 5, 36)"><g clip-path="url(#6533981b5f)"><g clip-path="url(#093b19b918)"><path fill="#ea7400" d="M 0.578125 0.609375 L 7.351562 0.609375 L 7.351562 78.3125 L 0.578125 78.3125 Z M 0.578125 0.609375 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g clip-path="url(#613d45ef5b)"><g transform="matrix(1, 0, 0, 1, 11, 36)"><g clip-path="url(#e4c929029b)"><g clip-path="url(#229011547f)"><path fill="#004f49" d="M 0.671875 0.609375 L 7.445312 0.609375 L 7.445312 78.3125 L 0.671875 78.3125 Z M 0.671875 0.609375 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g></g></g></svg></div>
+</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#how">How To Play</a></li>
+    <li><a href="#reserve" class="nav-cta">Pre-Order Now</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero">
+  <span class="section-tag light">Pre-order</span>
+  <h1>RESERVE YOUR <span class="gold">PACK</span></h1>
+  <p>After months of questionable decisions, excessive testing and heated arguments over whether a card was "too much" or "not enough",<br>Card Kudu is finally ready for pre-orders.</p>
+</section>
+
+<div class="content" id="reserve">
+<div class="layout">
+
+<div>
+<div class="card summary">
+<h2>YOUR ORDER</h2>
+<span class="price-label-s">Total</span>
+<div class="price">Rs. <span id="total">4,390</span></div>
+<span class="price-incl">Recommended for 3–8 players</span>
+
+<label style="margin-top:20px">Quantity</label>
+<select id="qty">
+<option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+</select>
+
+<div class="status">
+<div><span class="tick">✓</span>No payment required today</div>
+<div><span class="tick">✓</span>Delivery charges confirmed before payment</div>
+<div><span class="tick">✓</span>Reserve now, pay when ready</div>
+</div>
+</div>
+
+<div class="card status-card">
+<h3>Current Status</h3>
+<p>
+The cards are currently being printed, packed and treated with the level of care usually reserved for newborn babies and Kottu orders.
+</p>
+<p>
+Everything is expected to be ready soonish. Once the game is ready, we'll get in touch.
+</p>
+</div>
+</div>
+
+<div class="card order-card">
+<h2>RESERVE MY PACK</h2>
+
+<div class="notice">
+Make sure your friend group is ready. Things are about to get poddak ridiculous.
+</div>
+
+<form id="orderForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSe2z50krQ8ehJFp0pkKNCcTg4HW8hL8crlT-g6E5TfKBbSQUg/formResponse" method="POST" target="hidden_iframe">
+<div class="row">
+<div>
+<label>Full Name</label>
+<input name="entry.1602114408" required>
+</div>
+<div>
+<label>WhatsApp Number</label>
+<input name="entry.404125756" required>
+</div>
+</div>
+
+<label>Email Address</label>
+<input type="email" name="entry.401752720" required>
+
+<label>Delivery Address</label>
+<textarea name="entry.1300620379" required></textarea>
+
+<div class="row">
+<div>
+<label>Quantity</label>
+<select name="entry.426215658">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+</select>
+</div>
+<div>
+<label>Are You Over 18?</label>
+<select name="entry.314674710">
+<option value="Yes">Yes</option>
+<option value="No">No</option>
+</select>
+</div>
+</div>
+
+<button class="btn" type="submit">RESERVE MY PACK</button>
+</form>
+
+<div id="successMessage" style="display:none; text-align:center; padding:20px; font-weight:bold;">
+✅ Ela kiri! Your pack has been reserved. We'll be in touch on WhatsApp soon.
+</div>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+</div>
+
+<script>
+document.getElementById('orderForm').addEventListener('submit', function() {
+setTimeout(function() {
+document.getElementById('orderForm').style.display = 'none';
+document.getElementById('successMessage').style.display = 'block';
+}, 600);
+});
+</script>
+
+</div>
+</div>
+
+<div class="disclaimer">
+  <p>This game is satire. Any resemblance to real persons, brands, or places is purely coincidental... unless your mind made the connection. In that case, that's on you.</p>
+</div>
+
+<footer><span class="footer-copy">A game for Sri Lankans with no shame.</span>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/cardkudu/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://www.tiktok.com/@card.kudu" target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href="https://wa.me/94776178974" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+document.getElementById('qty').addEventListener('change',e=>{
+document.getElementById('total').textContent=(4390*parseInt(e.target.value)).toLocaleString();
+});
+</script>
+
+</body>
+</html>
