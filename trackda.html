@@ -327,27 +327,22 @@ Make sure your friend group is ready. Things are about to get poddak ridiculous.
 <script>
 // ─── Promo code logic ───────────────────────────────────────────────
 // Sri Lanka is UTC+5:30
-// Codes are valid only on their date (midnight SL time = end of that day)
+// Codes are valid only on their assigned date (SL time), expiring at midnight
 
 const PROMO_CODES = {
-  'track01':      { date: '2025-06-18' },
-  'trackfriday':  { date: '2025-06-19' },
-  'track03':      { date: '2025-06-20' },
-  '0000':         { alwaysValid: true },
+  'track01':     { date: '2026-06-18' },
+  'trackfriday': { date: '2026-06-19' },
+  'track03':     { date: '2026-06-20' },
+  '0000':        { alwaysValid: true },
 };
 
-// Dates the show runs (for "before the show" detection)
-const SHOW_DATES = ['2025-06-18', '2025-06-19', '2025-06-20'];
+// First show date (for "before the show" detection)
+const FIRST_SHOW_DATE = '2026-06-18';
 
 function getSLDate() {
   // Returns today's date string in YYYY-MM-DD in Asia/Colombo timezone
   const now = new Date();
-  const slStr = now.toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' }); // en-CA gives YYYY-MM-DD
-  return slStr;
-}
-
-function isBeforeShowDates(today) {
-  return today < SHOW_DATES[0];
+  return now.toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' }); // en-CA gives YYYY-MM-DD
 }
 
 const BASE_PRICE = 4390;
@@ -355,7 +350,6 @@ const DISC_PRICE = Math.round(BASE_PRICE * 0.9); // 3951
 let discountActive = false;
 
 function updatePricing(qty) {
-  // Always show discounted price + strikethrough original
   document.getElementById('total').textContent = (DISC_PRICE * qty).toLocaleString();
   document.getElementById('orig-total').textContent = (BASE_PRICE * qty).toLocaleString();
 }
@@ -363,48 +357,65 @@ function updatePricing(qty) {
 function validatePromo(code) {
   const today = getSLDate();
   const statusEl = document.getElementById('promoStatus');
-  const entry = PROMO_CODES[code.toLowerCase().trim()];
+  const trimmed = code.trim();
+  const entry = PROMO_CODES[trimmed.toLowerCase()];
 
-  if (entry && entry.alwaysValid) {
-    statusEl.className = 'promo-status valid';
-    statusEl.textContent = "✓ Promo code verified!";
-    return;
-  }
-
-  if (!code.trim()) {
+  // Empty field — reset
+  if (!trimmed) {
     statusEl.className = 'promo-status';
     statusEl.textContent = '';
     discountActive = false;
-    updatePricing(parseInt(document.getElementById('qty').value), false);
+    updatePricing(parseInt(document.getElementById('qty').value));
     return;
   }
 
-  if (isBeforeShowDates(today)) {
-    statusEl.className = 'promo-status pre-event';
-    statusEl.textContent = "Come on! We've not even hit the show date yet. You can't possibly have a promo code? Card kudu!";
+  // Always-valid code (0000)
+  if (entry && entry.alwaysValid) {
+    statusEl.className = 'promo-status valid';
+    statusEl.textContent = "✓ Promo code verified! You've unlocked your 10% off.";
+    discountActive = true;
+    updatePricing(parseInt(document.getElementById('qty').value));
     return;
   }
 
+  // Unrecognised code
   if (!entry) {
-    statusEl.className = 'promo-status invalid';
-    statusEl.textContent = "That promo code is invalid. Check your ticket stub or ask the show team.";
-    return;
-  }
-
-  if (entry.date !== today) {
-    if (today > entry.date) {
-      statusEl.className = 'promo-status invalid';
-      statusEl.textContent = "That promo code has expired — it was valid only on " + entry.date + ".";
-    } else {
+    // Give a softer message if we haven't reached the shows yet
+    if (today < FIRST_SHOW_DATE) {
       statusEl.className = 'promo-status pre-event';
       statusEl.textContent = "Come on! We've not even hit the show date yet. You can't possibly have a promo code? Card kudu!";
+    } else {
+      statusEl.className = 'promo-status invalid';
+      statusEl.textContent = "That promo code is invalid. Please check with the show team.";
     }
+    discountActive = false;
+    updatePricing(parseInt(document.getElementById('qty').value));
     return;
   }
 
-  // Valid!
+  // Date-specific code — check if it's too early
+  if (today < entry.date) {
+    statusEl.className = 'promo-status pre-event';
+    statusEl.textContent = "Come on! We've not even hit the show date yet. You can't possibly have a promo code? Card kudu!";
+    discountActive = false;
+    updatePricing(parseInt(document.getElementById('qty').value));
+    return;
+  }
+
+  // Date-specific code — check if it's expired
+  if (today > entry.date) {
+    statusEl.className = 'promo-status invalid';
+    statusEl.textContent = "That promo code has expired — it was valid only on " + entry.date + ".";
+    discountActive = false;
+    updatePricing(parseInt(document.getElementById('qty').value));
+    return;
+  }
+
+  // Date matches — valid!
   statusEl.className = 'promo-status valid';
   statusEl.textContent = "✓ Promo code verified! You've unlocked your 10% off.";
+  discountActive = true;
+  updatePricing(parseInt(document.getElementById('qty').value));
 }
 
 document.getElementById('promoInput').addEventListener('input', function() {
