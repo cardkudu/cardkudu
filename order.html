@@ -174,6 +174,7 @@ footer { background: var(--maroon-dark); padding: 1.8rem 3rem; display: flex; ju
 
 <div class="status">
 <div><span class="tick">✓</span>Reserve now, pay when ready</div>
+<div><span class="tick">✓</span>Pay via bank transfer, Koko, or Cash on Delivery</div>
 <div><span class="tick">✓</span>Delivery charges confirmed before payment</div>
 </div>
 </div>
@@ -296,6 +297,7 @@ document.getElementById('qty').addEventListener('change', e => {
   document.getElementById('total').textContent = (4390 * parseInt(val)).toLocaleString();
   document.getElementById('qtyForm').value = val;
   updateOrderTotal();
+  if (typeof updateDeliveryFee === 'function') updateDeliveryFee();
 });
 
 document.getElementById('qtyForm').addEventListener('change', e => {
@@ -303,6 +305,7 @@ document.getElementById('qtyForm').addEventListener('change', e => {
   document.getElementById('total').textContent = (4390 * parseInt(val)).toLocaleString();
   document.getElementById('qty').value = val;
   updateOrderTotal();
+  if (typeof updateDeliveryFee === 'function') updateDeliveryFee();
 });
 </script>
 
@@ -383,6 +386,19 @@ function setupSearchableDropdown(inputId, dropdownId, items, getLabel, onSelect)
   return { getSelected: () => selectedValue };
 }
 
+// Delivery surcharge: +Rs. 100 on top of the city's base delivery charge
+// whenever 2 or more packs are ordered.
+let selectedCityBaseCharge = null;
+
+function updateDeliveryFee() {
+  if (selectedCityBaseCharge === null) return;
+  const qty = parseInt(document.getElementById('qty').value) || 1;
+  const surcharge = qty >= 2 ? 100 : 0;
+  const finalCharge = selectedCityBaseCharge + surcharge;
+  document.getElementById('cityCharge').value = finalCharge;
+  document.getElementById('deliveryFeeAmt').textContent = 'Rs. ' + finalCharge.toLocaleString();
+}
+
 // Setup city search
 setupSearchableDropdown(
   'cityInput', 'cityDropdown',
@@ -390,12 +406,13 @@ setupSearchableDropdown(
   item => item.city,
   item => {
     if (item) {
-      document.getElementById('cityCharge').value = item.charge;
+      selectedCityBaseCharge = item.charge;
       document.getElementById('deliveryCityName').textContent = item.city;
-      document.getElementById('deliveryFeeAmt').textContent = 'Rs. ' + item.charge.toLocaleString();
+      updateDeliveryFee();
       document.getElementById('deliveryFeeBox').style.display = 'block';
       updateOrderTotal();
     } else {
+      selectedCityBaseCharge = null;
       document.getElementById('cityCharge').value = '';
       document.getElementById('deliveryFeeBox').style.display = 'none';
       updateOrderTotal();
