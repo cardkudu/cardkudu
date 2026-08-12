@@ -105,6 +105,11 @@ textarea { min-height: 120px; resize: vertical; }
 .btn { background: var(--gold-bright); color: var(--maroon-dark); border: none; padding: 16px; width: 100%; font-weight: 800; border-radius: 4px; font-size: 0.95rem; cursor: pointer; transition: background 0.15s, transform 0.1s; letter-spacing: 0.5px; }
 .btn:hover { background: #FFD060; transform: translateY(-2px); }
 
+.btn-intl { display: inline-block; background: var(--gold-bright); color: var(--maroon-dark); border: none; padding: 12px 26px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 1.4rem; transition: background 0.15s, color 0.15s, transform 0.1s; }
+.btn-intl:hover { background: #FFD060; transform: translateY(-2px); }
+.btn-intl.block { display: block; width: 100%; box-sizing: border-box; text-align: center; margin-top: 14px; background: var(--maroon); color: #fff; }
+.btn-intl.block:hover { background: var(--maroon-dark); color: #fff; }
+
 .notice { background: rgba(240,176,32,0.12); border-left: 4px solid var(--gold-bright); padding: 14px 16px; margin-bottom: 20px; border-radius: 4px; font-size: 0.9rem; color: #5A3A25; }
 
 .status { margin-top: 20px; line-height: 1.9; font-size: 0.85rem; color: rgba(255,255,255,0.85); }
@@ -155,6 +160,7 @@ footer { background: var(--maroon-dark); padding: 1.8rem 3rem; display: flex; ju
   <span class="section-tag light">Order</span>
   <h1>YOUR PACK IS <span class="gold">WAITING</span></h1>
   <p>Packed with outrageous questions, terrible answers, legendary imitations and enough second-hand embarrassment to ruin a family gathering, this is the party game Sri Lanka probably didn't need, but definitely deserves.</p>
+  <a class="btn-intl" href="https://thambiliisland.com/product/accessories/card-kudu-card-pack/">Click here for international shipping</a>
 </section>
 
 <div class="content" id="reserve">
@@ -260,6 +266,8 @@ footer { background: var(--maroon-dark); padding: 1.8rem 3rem; display: flex; ju
 
 <button class="btn" type="submit">ORDER NOW</button>
 </form>
+
+<a class="btn-intl block" href="https://thambiliisland.com/product/accessories/card-kudu-card-pack/">Click here for international shipping</a>
 
 <div id="successMessage" style="display:none; text-align:center; padding:20px; font-weight:bold;">
 ✅ Ela kiri! Your pack has been reserved. We'll be in touch on WhatsApp soon.
