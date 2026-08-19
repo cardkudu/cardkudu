@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Type of Sri Lankan Are You? | Card Kudu</title>
+<meta name="description" content="Think you're unique? You've actually been copy-pasted from a Sri Lankan template. Take the quiz and find out which one.">
+<meta property="og:title" content="What Type of Sri Lankan Are You? | Card Kudu" />
+<meta property="og:description" content="16 questions. No right answers. Mild emotional damage possible." />
+<meta property="og:image" content="https://www.cardkudu.com/featured_image.png" />
+<meta property="og:url" content="https://www.cardkudu.com/quiz" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Norwester';
+  src: url('https://cdn.jsdelivr.net/npm/norwester-font@1.0.1/norwester.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/npm/norwester-font@1.0.1/norwester.woff') format('woff');
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --maroon: #8B1C2C;
+  --maroon-dark: #5C1019;
+  --maroon-mid: #7A1825;
+  --orange: #D96B0A;
+  --orange-bright: #F08020;
+  --gold: #F0B020;
+  --gold-light: #FFD060;
+  --teal: #1A6B58;
+  --cream: #FAF5EC;
+  --dark: #1C0A08;
+  --heading: 'Norwester', 'Impact', sans-serif;
+  --body: 'DM Sans', sans-serif;
+}
+html, body { width: 100%; min-height: 100%; overflow-x: hidden; }
+body {
+  font-family: var(--body);
+  background: var(--maroon-dark);
+  color: var(--dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOUCH FIX ── */
+button, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* ── NAV — exact from index.html ── */
+.ck-logo { display: flex; align-items: center; padding: 0; margin: 0; text-decoration: none; }
+.brand-logo { height: 72px; display: flex; align-items: center; justify-content: center; line-height: 0; }
+.brand-logo svg { height: 100%; width: auto; display: block; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 3rem; background: var(--maroon-dark); position: sticky; top: 0; z-index: 100; border-bottom: 2px solid rgba(212,146,10,0.25); }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta { background: var(--gold) !important; color: var(--maroon-dark) !important; padding: 0.45rem 1.2rem !important; border-radius: 3px; font-weight: 800 !important; }
+
+/* ── FOOTER — exact from index.html ── */
+.disclaimer { background: var(--maroon-mid); padding: 1.5rem 3rem; text-align: center; }
+.disclaimer p { font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.6; font-style: italic; max-width: 600px; margin: 0 auto; }
+footer { background: var(--maroon-dark); padding: 1.8rem 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); }
+.footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.72rem; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  z-index: 300;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--orange-bright), var(--teal));
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  width: 0%;
+}
+
+/* ── MAIN CONTAINER ── */
+.quiz-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── SCREEN BASE ── */
+.screen {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem 4rem;
+  min-height: calc(100vh - 90px);
+  overflow-y: auto;
+}
+.screen.active { display: flex; }
+
+/* ── INTRO SCREEN ── */
+.intro-screen {
+  background: var(--maroon-dark);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.intro-screen::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--orange-bright), var(--teal));
+}
+
+/* Decorative background text */
+.intro-bg-text {
+  position: absolute;
+  font-family: var(--heading);
+  font-size: clamp(6rem, 18vw, 16rem);
+  color: rgba(255,255,255,0.025);
+  letter-spacing: 4px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.intro-inner { position: relative; z-index: 1; max-width: 620px; }
+
+.intro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(240,176,32,0.12);
+  border: 1px solid rgba(240,176,32,0.3);
+  color: var(--gold);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  border-radius: 2px;
+  margin-bottom: 2rem;
+}
+.intro-badge-dot {
+  width: 5px; height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.intro-h1 {
+  font-family: var(--heading);
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  color: #fff;
+  line-height: 0.95;
+  letter-spacing: 2px;
+  margin-bottom: 1.8rem;
+}
+.intro-h1 .gold { color: var(--gold); }
+.intro-h1 .orange { color: var(--orange-bright); }
+
+.intro-sub {
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  color: rgba(255,255,255,0.65);
+  line-height: 1.85;
+  margin-bottom: 2.8rem;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.intro-sub strong { color: rgba(255,255,255,0.9); }
+
+.btn-expose {
+  background: var(--gold);
+  color: var(--maroon-dark);
+  border: none;
+  padding: 1.1rem 3rem;
+  font-family: var(--heading);
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 2;
+}
+.btn-expose:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-expose:active { transform: translateY(0); background: var(--gold-light); }
+
+.intro-meta {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 2;
+  letter-spacing: 0.3px;
+}
+.intro-meta span { display: block; }
+
+/* ── QUESTION SCREEN ── */
+.question-screen {
+  background: var(--cream);
+  padding-top: 2rem;
+}
+
+.q-header {
+  width: 100%;
+  max-width: 580px;
+  margin-bottom: 2rem;
+}
+.q-counter {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+.q-progress-row {
+  display: flex;
+  gap: 4px;
+}
+.q-pip {
+  flex: 1;
+  height: 3px;
+  background: rgba(92,16,25,0.12);
+  border-radius: 2px;
+  transition: background 0.4s;
+}
+.q-pip.done { background: var(--maroon); }
+.q-pip.active { background: var(--gold); }
+
+.q-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 580px;
+  box-shadow: 0 8px 40px rgba(92,16,25,0.1), 0 2px 8px rgba(92,16,25,0.06);
+  border-top: 3px solid var(--maroon);
+  position: relative;
+  animation: slideUp 0.38s cubic-bezier(0.34,1.26,0.64,1) both;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.q-card.exiting {
+  animation: slideDown 0.25s cubic-bezier(0.4,0,1,1) both;
+}
+@keyframes slideDown {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-16px) scale(0.97); }
+}
+
+.q-num {
+  font-family: var(--heading);
+  font-size: 0.85rem;
+  color: rgba(92,16,25,0.3);
+  letter-spacing: 2px;
+  margin-bottom: 0.7rem;
+}
+.q-text {
+  font-family: var(--heading);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--maroon-dark);
+  letter-spacing: 1px;
+  line-height: 1.15;
+  margin-bottom: 1.8rem;
+}
+
+.answers { display: flex; flex-direction: column; gap: 0.65rem; }
+.answer-btn {
+  background: var(--cream);
+  border: 1.5px solid rgba(92,16,25,0.1);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--body);
+  font-size: 0.88rem;
+  color: var(--dark);
+  font-weight: 500;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.answer-btn:hover {
+  border-color: var(--maroon);
+  background: #fff;
+  transform: translateX(3px);
+}
+.answer-btn.selected {
+  background: var(--maroon-dark);
+  border-color: var(--maroon-dark);
+  color: #fff;
+}
+.answer-btn.selected .ans-letter {
+  background: var(--gold);
+  color: var(--maroon-dark);
+}
+.answer-btn.dimmed {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.ans-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  background: rgba(92,16,25,0.08);
+  border-radius: 3px;
+  font-family: var(--heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: var(--maroon-dark);
+  transition: all 0.15s;
+}
+
+/* ── RESULT SCREEN ── */
+.result-screen {
+  background: var(--maroon-dark);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.result-screen::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--orange-bright), var(--teal));
+}
+
+.result-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  width: 100%;
+  animation: fadeIn 0.5s ease both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.result-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.6rem;
+}
+
+.result-you-are {
+  font-family: var(--heading);
+  font-size: clamp(4rem, 12vw, 8rem);
+  color: var(--gold);
+  line-height: 0.9;
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.result-archetype {
+  font-family: var(--heading);
+  font-size: clamp(1.5rem, 5vw, 2.8rem);
+  color: #fff;
+  letter-spacing: 1.5px;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.result-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.result-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--orange-bright));
+}
+
+.result-desc {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.85;
+  margin-bottom: 1.2rem;
+}
+
+.result-stat {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  background: rgba(240,176,32,0.08);
+  border: 1px solid rgba(240,176,32,0.2);
+  border-radius: 4px;
+  padding: 0.9rem 1rem;
+}
+.stat-icon { font-size: 1rem; margin-top: 1px; flex-shrink: 0; }
+.stat-text {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+}
+.stat-text strong { color: var(--gold); font-weight: 700; }
+
+.result-oneliner {
+  font-family: var(--heading);
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+  margin-bottom: 2rem;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+}
+.btn-share {
+  background: var(--gold);
+  color: var(--maroon-dark);
+  border: none;
+  padding: 1rem 2.5rem;
+  font-family: var(--heading);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.btn-share:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+.btn-retry {
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.85rem 2rem;
+  font-family: var(--body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-retry:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
+
+/* ── CTA BLOCK ── */
+.cta-block {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  width: 100%;
+}
+.cta-tag {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.6rem;
+}
+.cta-h {
+  font-family: var(--heading);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: #fff;
+  letter-spacing: 1.5px;
+  line-height: 1.1;
+  margin-bottom: 0.7rem;
+}
+.cta-sub {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+.btn-order {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--maroon-dark);
+  padding: 1rem 2.8rem;
+  font-family: var(--heading);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-order:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+/* ── SHARE MODAL ── */
+.share-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(28,10,8,0.85);
+  backdrop-filter: blur(4px);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.share-overlay.open { display: flex; }
+
+.share-modal {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+  animation: modalIn 0.3s cubic-bezier(0.34,1.26,0.64,1) both;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.share-modal-h {
+  font-family: var(--heading);
+  font-size: 1.6rem;
+  color: var(--maroon-dark);
+  letter-spacing: 1.5px;
+  margin-bottom: 0.4rem;
+}
+.share-modal-sub {
+  font-size: 0.78rem;
+  color: #7A5A45;
+  margin-bottom: 1.5rem;
+}
+
+/* Share card */
+.share-card {
+  background: var(--maroon-dark);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid var(--gold);
+}
+.share-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--orange-bright), var(--teal));
+}
+.sc-eyebrow {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 0.8rem;
+}
+.sc-you-are-label {
+  font-family: var(--heading);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 0.2rem;
+}
+.sc-archetype-name {
+  font-family: var(--heading);
+  font-size: clamp(1.3rem, 5vw, 1.8rem);
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.sc-oneliner {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+  line-height: 1.5;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 0.2rem;
+}
+.sc-desc {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.62);
+  line-height: 1.65;
+  margin-bottom: 0.9rem;
+}
+.sc-cta {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+.sc-cta-ado {
+  font-family: var(--heading);
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  color: #fff;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+.sc-cta-url {
+  display: inline-block;
+  font-family: var(--heading);
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.sc-cta-url:hover { color: var(--gold-light); }
+
+.share-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.share-opt {
+  background: var(--maroon-dark);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  transition: background 0.15s;
+}
+.share-opt:hover { background: var(--maroon); }
+.share-opt-ig { background: linear-gradient(135deg, #833ab4 0%, #c13584 40%, #e1306c 70%, #fd5949 100%); }
+.share-opt-ig:hover { filter: brightness(1.1); background: linear-gradient(135deg, #833ab4 0%, #c13584 40%, #e1306c 70%, #fd5949 100%); }
+.share-opt-icon { font-size: 1rem; display: flex; align-items: center; }
+.share-close {
+  background: transparent;
+  border: 1px solid rgba(92,16,25,0.15);
+  color: #7A5A45;
+  padding: 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-family: var(--body);
+  font-weight: 500;
+  transition: all 0.15s;
+  margin-top: 0.4rem;
+}
+.share-close:hover { border-color: var(--maroon); color: var(--maroon); }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  nav { padding: 0.75rem 1.2rem; }
+  .brand-logo { height: 52px; }
+  .nav-links { gap: 0.8rem; }
+  .nav-links a { font-size: 0.72rem; }
+  .nav-cta { padding: 0.4rem 0.8rem !important; }
+  .screen { padding: 1.5rem 1rem 3rem; }
+  .q-card { padding: 1.8rem 1.2rem; }
+  .result-you-are { font-size: clamp(3.5rem, 18vw, 6rem); }
+  .share-modal { padding: 1.5rem 1.2rem; }
+  .disclaimer { padding: 1.5rem 1.2rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-wrap"><div class="progress-fill" id="progressBar"></div></div>
+
+<!-- NAV — exact from cardkudu.com -->
+<nav>
+  <a class="ck-logo" href="https://www.cardkudu.com">
+    <div class="brand-logo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" zoomAndPan="magnify" viewBox="0 0 150 149.999998" height="200" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><g/><clipPath id="695e955a71"><path d="M 0.164062 36.609375 L 6.941406 36.609375 L 6.941406 114.308594 L 0.164062 114.308594 Z M 0.164062 36.609375 " clip-rule="nonzero"/></clipPath><clipPath id="1afcb3b7e0"><path d="M 0.164062 0.609375 L 6.941406 0.609375 L 6.941406 78.308594 L 0.164062 78.308594 Z M 0.164062 0.609375 " clip-rule="nonzero"/></clipPath><clipPath id="341e59d190"><rect x="0" width="7" y="0" height="79"/></clipPath><clipPath id="04c13d0a60"><path d="M 5.578125 36.609375 L 12.351562 36.609375 L 12.351562 114.308594 L 5.578125 114.308594 Z M 5.578125 36.609375 " clip-rule="nonzero"/></clipPath><clipPath id="093b19b918"><path d="M 0.578125 0.609375 L 7.351562 0.609375 L 7.351562 78.308594 L 0.578125 78.308594 Z M 0.578125 0.609375 " clip-rule="nonzero"/></clipPath><clipPath id="6533981b5f"><rect x="0" width="8" y="0" height="79"/></clipPath><clipPath id="613d45ef5b"><path d="M 11.671875 36.609375 L 18.445312 36.609375 L 18.445312 114.308594 L 11.671875 114.308594 Z M 11.671875 36.609375 " clip-rule="nonzero"/></clipPath><clipPath id="229011547f"><path d="M 0.671875 0.609375 L 7.445312 0.609375 L 7.445312 78.308594 L 0.671875 78.308594 Z M 0.671875 0.609375 " clip-rule="nonzero"/></clipPath><clipPath id="e4c929029b"><rect x="0" width="8" y="0" height="79"/></clipPath><clipPath id="0b19818a56"><rect x="0" width="147" y="0" height="127"/></clipPath></defs><g transform="matrix(1, 0, 0, 1, 3, 11)"><g clip-path="url(#0b19818a56)"><g fill="#ffffff" fill-opacity="1"><g transform="translate(20.139556, 59.934911)"><g><path d="M 26.625 -38.734375 L 26.625 -32.359375 C 26.625 -31.722656 26.3125 -31.40625 25.6875 -31.40625 L 19.78125 -31.40625 C 19.15625 -31.40625 18.84375 -31.722656 18.84375 -32.359375 L 18.84375 -37.078125 C 18.84375 -38.648438 18.050781 -39.4375 16.46875 -39.4375 L 13.40625 -39.4375 C 11.832031 -39.4375 11.046875 -38.648438 11.046875 -37.078125 L 11.046875 -10.15625 C 11.046875 -8.582031 11.832031 -7.796875 13.40625 -7.796875 L 16.46875 -7.796875 C 18.050781 -7.796875 18.84375 -8.582031 18.84375 -10.15625 L 18.84375 -14.875 C 18.84375 -15.507812 19.15625 -15.828125 19.78125 -15.828125 L 25.6875 -15.828125 C 26.3125 -15.828125 26.625 -15.507812 26.625 -14.875 L 26.625 -8.5 C 26.625 -5.75 25.894531 -3.644531 24.4375 -2.1875 C 22.988281 -0.726562 20.882812 0 18.125 0 L 11.515625 0 C 8.753906 0 6.632812 -0.726562 5.15625 -2.1875 C 3.6875 -3.644531 2.953125 -5.75 2.953125 -8.5 L 2.953125 -38.734375 C 2.953125 -41.523438 3.6875 -43.640625 5.15625 -45.078125 C 6.632812 -46.515625 8.753906 -47.234375 11.515625 -47.234375 L 18.125 -47.234375 C 20.882812 -47.234375 22.988281 -46.515625 24.4375 -45.078125 C 25.894531 -43.640625 26.625 -41.523438 26.625 -38.734375 Z M 26.625 -38.734375 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(49.132908, 59.934911)"><g><path d="M 31.40625 0 L 25.15625 0 C 24.644531 0 24.328125 -0.273438 24.203125 -0.828125 L 22.5625 -9.453125 L 12.046875 -9.453125 L 10.453125 -0.828125 C 10.335938 -0.273438 10.019531 0 9.5 0 L 3.1875 0 C 2.476562 0 2.222656 -0.332031 2.421875 -1 L 12.21875 -46.40625 C 12.34375 -46.957031 12.675781 -47.234375 13.21875 -47.234375 L 21.4375 -47.234375 C 21.988281 -47.234375 22.320312 -46.957031 22.4375 -46.40625 L 32.234375 -1 C 32.359375 -0.332031 32.082031 0 31.40625 0 Z M 21.078125 -16.296875 L 17.296875 -36.90625 L 13.515625 -16.296875 Z M 21.078125 -16.296875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(83.735995, 59.934911)"><g><path d="M 27.21875 -38.734375 L 27.21875 -24.328125 C 27.21875 -20.390625 25.78125 -17.789062 22.90625 -16.53125 L 26.984375 -1.0625 C 27.179688 -0.351562 26.90625 0 26.15625 0 L 20.015625 0 C 19.460938 0 19.128906 -0.273438 19.015625 -0.828125 L 15.0625 -15.828125 L 10.984375 -15.828125 L 10.984375 -0.9375 C 10.984375 -0.3125 10.664062 0 10.03125 0 L 3.890625 0 C 3.265625 0 2.953125 -0.3125 2.953125 -0.9375 L 2.953125 -46.296875 C 2.953125 -46.921875 3.265625 -47.234375 3.890625 -47.234375 L 18.71875 -47.234375 C 21.507812 -47.234375 23.625 -46.515625 25.0625 -45.078125 C 26.5 -43.640625 27.21875 -41.523438 27.21875 -38.734375 Z M 10.984375 -23.625 L 16.828125 -23.625 C 18.398438 -23.625 19.1875 -24.410156 19.1875 -25.984375 L 19.1875 -37.078125 C 19.1875 -38.648438 18.398438 -39.4375 16.828125 -39.4375 L 10.984375 -39.4375 Z M 10.984375 -23.625 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(113.910365, 59.934911)"><g><path d="M 2.953125 -0.9375 L 2.953125 -46.296875 C 2.953125 -46.921875 3.265625 -47.234375 3.890625 -47.234375 L 18.0625 -47.234375 C 20.863281 -47.234375 22.984375 -46.503906 24.421875 -45.046875 C 25.859375 -43.597656 26.578125 -41.472656 26.578125 -38.671875 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 3.890625 0 C 3.265625 0 2.953125 -0.3125 2.953125 -0.9375 Z M 10.984375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -37.015625 C 18.78125 -38.628906 17.992188 -39.4375 16.421875 -39.4375 L 10.984375 -39.4375 Z M 10.984375 -7.796875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(143.447187, 59.934911)"><g/></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(20.139556, 114.136067)"><g><path d="M 28.21875 0 L 21.96875 0 C 21.300781 0 20.847656 -0.296875 20.609375 -0.890625 L 13.171875 -18.421875 L 10.984375 -14.234375 L 10.984375 -1.1875 C 10.984375 -0.394531 10.585938 0 9.796875 0 L 4.140625 0 C 3.347656 0 2.953125 -0.394531 2.953125 -1.1875 L 2.953125 -46.0625 C 2.953125 -46.84375 3.347656 -47.234375 4.140625 -47.234375 L 9.796875 -47.234375 C 10.585938 -47.234375 10.984375 -46.84375 10.984375 -46.0625 L 10.984375 -27.75 L 20.078125 -46.359375 C 20.390625 -46.941406 20.84375 -47.234375 21.4375 -47.234375 L 27.640625 -47.234375 C 28.066406 -47.234375 28.359375 -47.101562 28.515625 -46.84375 C 28.671875 -46.59375 28.648438 -46.253906 28.453125 -45.828125 L 18.421875 -25.21875 L 29.109375 -1.359375 C 29.304688 -0.960938 29.328125 -0.632812 29.171875 -0.375 C 29.015625 -0.125 28.695312 0 28.21875 0 Z M 28.21875 0 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(51.790179, 114.136067)"><g><path d="M 19.953125 -47.234375 L 25.390625 -47.234375 C 25.703125 -47.234375 25.976562 -47.113281 26.21875 -46.875 C 26.457031 -46.644531 26.578125 -46.375 26.578125 -46.0625 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 11.453125 0 C 8.703125 0 6.597656 -0.726562 5.140625 -2.1875 C 3.679688 -3.644531 2.953125 -5.75 2.953125 -8.5 L 2.953125 -46.0625 C 2.953125 -46.375 3.066406 -46.644531 3.296875 -46.875 C 3.535156 -47.113281 3.816406 -47.234375 4.140625 -47.234375 L 9.796875 -47.234375 C 10.117188 -47.234375 10.394531 -47.113281 10.625 -46.875 C 10.863281 -46.644531 10.984375 -46.375 10.984375 -46.0625 L 10.984375 -10.15625 C 10.984375 -8.582031 11.769531 -7.796875 13.34375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -46.0625 C 18.78125 -46.375 18.894531 -46.644531 19.125 -46.875 C 19.363281 -47.113281 19.640625 -47.234375 19.953125 -47.234375 Z M 19.953125 -47.234375 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(81.31501, 114.136067)"><g><path d="M 2.953125 -0.9375 L 2.953125 -46.296875 C 2.953125 -46.921875 3.265625 -47.234375 3.890625 -47.234375 L 18.0625 -47.234375 C 20.863281 -47.234375 22.984375 -46.503906 24.421875 -45.046875 C 25.859375 -43.597656 26.578125 -41.472656 26.578125 -38.671875 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 3.890625 0 C 3.265625 0 2.953125 -0.3125 2.953125 -0.9375 Z M 10.984375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -37.015625 C 18.78125 -38.628906 17.992188 -39.4375 16.421875 -39.4375 L 10.984375 -39.4375 Z M 10.984375 -7.796875 "/></g></g></g><g fill="#ffffff" fill-opacity="1"><g transform="translate(110.83984, 114.136067)"><g><path d="M 19.953125 -47.234375 L 25.390625 -47.234375 C 25.703125 -47.234375 25.976562 -47.113281 26.21875 -46.875 C 26.457031 -46.644531 26.578125 -46.375 26.578125 -46.0625 L 26.578125 -8.5 C 26.578125 -5.75 25.859375 -3.644531 24.421875 -2.1875 C 22.984375 -0.726562 20.863281 0 18.0625 0 L 11.453125 0 C 8.703125 0 6.597656 -0.726562 5.140625 -2.1875 C 3.679688 -3.644531 2.953125 -5.75 2.953125 -8.5 L 2.953125 -46.0625 C 2.953125 -46.375 3.066406 -46.644531 3.296875 -46.875 C 3.535156 -47.113281 3.816406 -47.234375 4.140625 -47.234375 L 9.796875 -47.234375 C 10.117188 -47.234375 10.394531 -47.113281 10.625 -46.875 C 10.863281 -46.644531 10.984375 -46.375 10.984375 -46.0625 L 10.984375 -10.15625 C 10.984375 -8.582031 11.769531 -7.796875 13.34375 -7.796875 L 16.421875 -7.796875 C 17.992188 -7.796875 18.78125 -8.582031 18.78125 -10.15625 L 18.78125 -46.0625 C 18.78125 -46.375 18.894531 -46.644531 19.125 -46.875 C 19.363281 -47.113281 19.640625 -47.234375 19.953125 -47.234375 Z M 19.953125 -47.234375 "/></g></g></g><g clip-path="url(#695e955a71)"><g transform="matrix(1, 0, 0, 1, 0, 36)"><g clip-path="url(#341e59d190)"><g clip-path="url(#1afcb3b7e0)"><path fill="#f7b718" d="M 0.164062 0.609375 L 6.941406 0.609375 L 6.941406 78.3125 L 0.164062 78.3125 Z M 0.164062 0.609375 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g clip-path="url(#04c13d0a60)"><g transform="matrix(1, 0, 0, 1, 5, 36)"><g clip-path="url(#6533981b5f)"><g clip-path="url(#093b19b918)"><path fill="#ea7400" d="M 0.578125 0.609375 L 7.351562 0.609375 L 7.351562 78.3125 L 0.578125 78.3125 Z M 0.578125 0.609375 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g clip-path="url(#613d45ef5b)"><g transform="matrix(1, 0, 0, 1, 11, 36)"><g clip-path="url(#e4c929029b)"><g clip-path="url(#229011547f)"><path fill="#004f49" d="M 0.671875 0.609375 L 7.445312 0.609375 L 7.445312 78.3125 L 0.671875 78.3125 Z M 0.671875 0.609375 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g></g></g></svg></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://www.cardkudu.com#how">How to play</a></li>
+    <li><a href="https://www.cardkudu.com/orderpage.html" class="nav-cta">Get yours — Rs. 4,390</a></li>
+  </ul>
+</nav>
+
+<!-- QUIZ SHELL -->
+<div class="quiz-shell">
+
+  <!-- ── SCREEN 1: INTRO ── -->
+  <section class="screen intro-screen active" id="screenIntro">
+    <div class="intro-bg-text">AYYO</div>
+    <div class="intro-inner">
+      <div class="intro-badge">
+        <span class="intro-badge-dot"></span>
+        Card Kudu · Official Quiz
+      </div>
+      <h1 class="intro-h1">
+        WHAT TYPE<br>
+        OF <span class="gold">SRI</span><br>
+        <span class="orange">LANKAN</span><br>
+        ARE YOU?
+      </h1>
+      <p class="intro-sub">
+        Think you're unique?<br>
+        <strong>You've actually been copy-pasted from a Sri Lankan template.</strong><br>
+        Take the test and discover which one.
+      </p>
+      <button class="btn-expose" onclick="startQuiz()">HARI, BALAMU KO</button>
+      <div class="intro-meta">
+        <span>16 questions.</span>
+        <span>No right answers.</span>
+        <span>Mild emotional damage possible.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SCREEN 2: QUESTION ── -->
+  <section class="screen question-screen" id="screenQuestion">
+    <div class="q-header">
+      <div class="q-counter" id="qCounter">QUESTION 1 OF 16</div>
+      <div class="q-progress-row" id="qPips"></div>
+    </div>
+    <div class="q-card" id="qCard">
+      <div class="q-num" id="qNum">01</div>
+      <div class="q-text" id="qText"></div>
+      <div class="answers" id="qAnswers"></div>
+    </div>
+  </section>
+
+  <!-- ── SCREEN 3: RESULT ── -->
+  <section class="screen result-screen" id="screenResult">
+    <div class="result-inner">
+      <div class="result-eyebrow">YOUR RESULT</div>
+      <div class="result-you-are">YOU ARE:</div>
+      <div class="result-archetype" id="rArchetype"></div>
+
+      <div class="result-card">
+        <p class="result-desc" id="rDesc"></p>
+        <div class="result-stat">
+          <span class="stat-icon">📊</span>
+          <div class="stat-text" id="rStat"></div>
+        </div>
+      </div>
+
+      <p class="result-oneliner" id="rOneliner"></p>
+
+      <div class="result-actions">
+        <button class="btn-share" onclick="openShare()">
+          <span>📤</span> SHARE RESULT
+        </button>
+        <button class="btn-retry" onclick="restartQuiz()">Try again (you won't get better)</button>
+      </div>
+
+      <div class="cta-block">
+        <div class="cta-tag">Sri Lankan parties need you</div>
+        <div class="cta-h">Now put this energy<br>to good use.</div>
+        <p class="cta-sub">Order Card Kudu — a game for Sri Lankans with no shame.</p>
+        <a href="https://www.cardkudu.com" class="btn-order">ORDER NOW</a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end quiz-shell -->
+
+<!-- FOOTER — exact from cardkudu.com -->
+<div class="disclaimer">
+  <p>This game is satire. Any resemblance to real persons, brands, or places is purely coincidental... unless your mind made the connection. In that case, that's on you.</p>
+</div>
+
+<footer><span class="footer-copy">A game for Sri Lankans with no shame.</span>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/cardkudu/" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="https://www.tiktok.com/@card.kudu" target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href="https://wa.me/94776178974" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- ── SHARE MODAL ── -->
+<div class="share-overlay" id="shareOverlay" onclick="closeShareIfOutside(event)">
+  <div class="share-modal">
+    <div class="share-modal-h">SCREENSHOT THIS.</div>
+    <p class="share-modal-sub">Or use one of these. Either way, your people need to see this.</p>
+
+    <div class="share-card" id="shareCard">
+      <div class="sc-eyebrow">WHAT TYPE OF SRI LANKAN ARE YOU?</div>
+      <div class="sc-you-are-label">I AM:</div>
+      <div class="sc-archetype-name" id="scArchetype"></div>
+      <div class="sc-desc" id="scDesc"></div>
+      <div class="sc-oneliner" id="scOneliner"></div>
+      <div class="sc-cta">
+        <div class="sc-cta-ado">Ado, what type of Sri Lankan are you?</div>
+        <a class="sc-cta-url" href="https://www.cardkudu.com/quiz" target="_blank" rel="noopener noreferrer">Find out at www.cardkudu.com/quiz</a>
+      </div>
+    </div>
+
+    <div class="share-buttons">
+      <button class="share-opt share-opt-ig" onclick="shareInstagram()">
+        <span class="share-opt-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </span>
+        Share to Instagram Story
+      </button>
+      <button class="share-opt" onclick="shareWhatsApp()">
+        <span class="share-opt-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </span>
+        Share on WhatsApp
+      </button>
+      <button class="share-opt" onclick="copyShareText()">
+        <span class="share-opt-icon">📋</span> <span id="copyBtnText">Copy share text</span>
+      </button>
+      <button class="share-close" onclick="closeShare()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════
+   QUIZ DATA — 16 archetypes / 16 questions / 4 answers each
+══════════════════════════════════════ */
+
+const QUESTIONS = [
+  {
+    text: "You've just arrived at a wedding.",
+    answers: [
+      { label: "Straight to the buffet", archetype: "buffet" },
+      { label: "Straight to the bar", archetype: "drink" },
+      { label: "Find out who's already here", archetype: "bureau" },
+      { label: "Figure out the earliest possible exit", archetype: "exit" }
+    ]
+  },
+  {
+    text: 'Your friend texts, "I\'ll be there in five minutes."',
+    answers: [
+      { label: "That's literally me", archetype: "late" },
+      { label: "I need an exact ETA", archetype: "minister" },
+      { label: "Aiyo, here we go again", archetype: "aiyo" },
+      { label: "I'll order another round", archetype: "drink" }
+    ]
+  },
+  {
+    text: "Colombo traffic is terrible.",
+    answers: [
+      { label: "Mun okkoma ekkai, malli", archetype: "government" },
+      { label: "I know a shortcut", archetype: "shortcut" },
+      { label: "Fuel prices are the real problem", archetype: "kottu" },
+      { label: "Let's start a group chat for alternate routes", archetype: "minister" }
+    ]
+  },
+  {
+    text: "Family photo time.",
+    answers: [
+      { label: "Suddenly disappear", archetype: "photo" },
+      { label: "Organize everyone", archetype: "minister" },
+      { label: "Complain while posing", archetype: "aiyo" },
+      { label: "Use it as cover to sneak out", archetype: "exit" }
+    ]
+  },
+  {
+    text: "Sri Lanka is playing tonight.",
+    answers: [
+      { label: "Don't call me", archetype: "cricket" },
+      { label: "Let's watch it over drinks", archetype: "drink" },
+      { label: "The selectors have no idea what they're doing", archetype: "kottu" },
+      { label: "I already know the playing XI", archetype: "cricket" }
+    ]
+  },
+  {
+    text: "You're at the supermarket.",
+    answers: [
+      { label: "Where are the discounts?", archetype: "discount" },
+      { label: "Which card gives the biggest offer?", archetype: "discount" },
+      { label: "I remember what this cost last month", archetype: "kapruka" },
+      { label: "Everything is too expensive now", archetype: "government" }
+    ]
+  },
+  {
+    text: "Family gatherings are...",
+    answers: [
+      { label: "A food event", archetype: "food" },
+      { label: "An interrogation session", archetype: "aunty" },
+      { label: "A chance to catch up on the latest gossip", archetype: "bureau" },
+      { label: "Something I want to leave early", archetype: "exit" }
+    ]
+  },
+  {
+    text: 'Someone says, "Let\'s meet."',
+    answers: [
+      { label: "I'm on my way (leaving in 20 minutes)", archetype: "late" },
+      { label: "What's the food situation?", archetype: "food" },
+      { label: "Who else is coming?", archetype: "bureau" },
+      { label: "Let's organize a group poll for venue", archetype: "minister" }
+    ]
+  },
+  {
+    text: "Which sentence describes you best?",
+    answers: [
+      { label: "I remember everything", archetype: "kapruka" },
+      { label: "I remember cricket statistics", archetype: "cricket" },
+      { label: "I remember every government mistake", archetype: "government" },
+      { label: "I remember every supermarket promotion", archetype: "discount" }
+    ]
+  },
+  {
+    text: "An aunty starts walking toward you.",
+    answers: [
+      { label: "Brace yourself", archetype: "aunty" },
+      { label: "Escape to the buffet", archetype: "buffet" },
+      { label: "Pretend to answer your phone", archetype: "photo" },
+      { label: "Prepare to hear the same questions again", archetype: "aunty" }
+    ]
+  },
+  {
+    text: "You're giving someone directions.",
+    answers: [
+      { label: "Turn left where the old Keells used to be", archetype: "shortcut" },
+      { label: "Google Maps isn't always right", archetype: "shortcut" },
+      { label: "Let me explain the traffic patterns", archetype: "kottu" },
+      { label: "I know an alternative side route", archetype: "shortcut" }
+    ]
+  },
+  {
+    text: "Somebody asks for a favor.",
+    answers: [
+      { label: "Let me check who actually caused this issue first", archetype: "bureau" },
+      { label: "Fine, but I'll do it... eventually.", archetype: "late" },
+      { label: "I'll remember this forever", archetype: "kapruka" },
+      { label: "Is food involved?", archetype: "food" }
+    ]
+  },
+  {
+    text: "The bill arrives.",
+    answers: [
+      { label: "Check for card promotions", archetype: "discount" },
+      { label: "One more round?", archetype: "drink" },
+      { label: "This is why the economy is collapsing", archetype: "kottu" },
+      { label: "Look at all these extra taxes", archetype: "government" }
+    ]
+  },
+  {
+    text: 'Somebody says, "Let\'s take a photo."',
+    answers: [
+      { label: "Vanish immediately", archetype: "photo" },
+      { label: "Become the photographer", archetype: "photo" },
+      { label: "Check if the food table is open yet", archetype: "buffet" },
+      { label: "Complain about the lighting", archetype: "aiyo" }
+    ]
+  },
+  {
+    text: "You're at a party.",
+    answers: [
+      { label: "Where's the buffet?", archetype: "buffet" },
+      { label: "Which aunty is going to question me first?", archetype: "aunty" },
+      { label: "Is there a TV showing the match?", archetype: "cricket" },
+      { label: "What time can I leave?", archetype: "exit" }
+    ]
+  },
+  {
+    text: "Your friends would describe you as...",
+    answers: [
+      { label: "Always late", archetype: "late" },
+      { label: "Always hungry", archetype: "food" },
+      { label: "Always bringing up something from years ago", archetype: "kapruka" },
+      { label: "Always complaining about something", archetype: "aiyo" }
+    ]
+  }
+];
+
+const ARCHETYPES = {
+  aiyo: {
+    title: "The Professional Aiyo Person",
+    desc: "You have an opinion on everything and a sigh for every occasion. You've said, 'Aiyo, no, I can't' and then immediately agreed to do it anyway. You've complained about something, fixed it yourself, and then complained about having to fix it. People don't come to you for solutions. They come for the performance.",
+    oneliner: "Aiyo is not a word. It's a lifestyle."
+  },
+  bureau: {
+    title: "The Api Okkoma Dannawa Bureau",
+    desc: "You know who's fighting, who's dating, who's getting divorced, and exactly what happened at that wedding six years ago. Nobody understands how this information reaches you. It just does. You consider yourself informed. Everyone else thinks you're dangerously overqualified in other people's business.",
+    oneliner: "You know things about people that their own families haven't discovered yet."
+  },
+  buffet: {
+    title: "The Magul Buffet General",
+    desc: "You've completed a full reconnaissance mission before the bride and groom have even entered the reception hall. You know where the isso vade, devilled chicken, and wattalappam are located. You've identified the people taking too much mutton and silently judged them for it. This isn't greed. This is strategy.",
+    oneliner: "You came for the wedding. You stayed for the second round of dessert."
+  },
+  late: {
+    title: "The Hari Hari, Enawa Machan",
+    desc: "You said 'Five minutes' while still in the shower. You said 'On the way' while choosing your outfit. You've told people you're parking when you haven't even left home. Somehow, despite overwhelming evidence to the contrary, you eventually arrive.",
+    oneliner: "Time is a suggestion, not a commitment."
+  },
+  minister: {
+    title: "The Machang Minister",
+    desc: "Nothing gets decided without your input. You've organised polls for things that required a simple yes or no. You've sent voice notes longer than some podcasts. You don't think you're controlling. You simply believe every decision deserves proper consultation.",
+    oneliner: "A lunch plan should never take less than 45 minutes to finalise."
+  },
+  kottu: {
+    title: "The Kottu Economist",
+    desc: "Every meal eventually becomes a discussion about politics, inflation, cricket, education, fuel prices, or the economy. You've explained national policy over cheese kottu at 1 a.m. and genuinely believed you were changing lives. You're not negative. You're just realistic.",
+    oneliner: "Every meal is also a TED Talk."
+  },
+  kapruka: {
+    title: "The Certified Kapruka",
+    desc: "You remember everything. Things people said ten years ago are stored in your memory with timestamps and supporting evidence. You bring them up at exactly the right moment and then act surprised when people get uncomfortable.",
+    oneliner: "Your memory has no recycle bin."
+  },
+  exit: {
+    title: "The Yanna Oney Bung",
+    desc: "You agreed to come because saying no felt rude. You've eaten, spoken to enough people to avoid suspicion, and are now calculating the earliest socially acceptable time to leave. Your exit strategy was prepared before you even arrived.",
+    oneliner: "You said yes. Your social battery said absolutely not."
+  },
+  aunty: {
+    title: "The Aunty Magnet",
+    desc: "You don't look for aunties. They find you. Within minutes of arriving, somebody is asking about your job, your future, your weight, your marriage plans, and whether you've been eating properly. You have somehow become a safe space for middle aged women.",
+    oneliner: "You've answered the same five questions at every family gathering since 2014."
+  },
+  food: {
+    title: "The Kaema First Policy",
+    desc: "You checked the menu before confirming attendance. You have ranked weddings, parties, and family gatherings according to food quality. When someone says, 'We'll sort food out later,' you hear a direct threat.",
+    oneliner: "No food confirmed. No commitment given."
+  },
+  shortcut: {
+    title: "The Shortcut Pora",
+    desc: "You know every shortcut in Colombo. You measure distance according to traffic conditions, school zones, and the time of day. You give directions using landmarks that disappeared years ago. Google Maps is useful, but you still trust yourself more.",
+    oneliner: "Turn left where the old Keells used to be."
+  },
+  discount: {
+    title: "The Lankan Discount Hunter",
+    desc: "You know every supermarket promotion, every bank offer, every loyalty programme, and every credit card discount. You've driven across the city to save a few hundred rupees and considered it a successful financial decision.",
+    oneliner: "Why pay full price when you can wait until Friday?"
+  },
+  photo: {
+    title: "The Ko Bung Moo? Department",
+    desc: "Family photos begin, and suddenly you've disappeared. Nobody can find you. Every single gathering ends with somebody asking, 'Ko bung moo?' You've mastered the ancient Sri Lankan art of avoiding photographic evidence.",
+    oneliner: "You appear in exactly one photo out of every fifty."
+  },
+  government: {
+    title: "The Mun Okkoma Ekkai Malli",
+    desc: "The government is responsible for everything. Traffic, electricity, inflation, the weather, your internet speed, and probably your neighbour's barking dog. You don't necessarily have evidence. You simply know who's responsible.",
+    oneliner: "Mun okkoma ekkai, malli."
+  },
+  cricket: {
+    title: "The Cricket Pissa",
+    desc: "Cricket isn't a sport. It's a religion. You've cancelled plans because there was a match. You've used 'we' to describe the Sri Lankan team despite never having played professionally. You know batting averages better than your relatives' birthdays.",
+    oneliner: "You have forgiven this team more times than you'd like to admit."
+  },
+  drink: {
+    title: "The Drink Ekak Daamu",
+    desc: "Nobody knows how it happens. A quick coffee becomes a beer. A birthday becomes a drinking session. A casual 'What are you doing?' message somehow ends with six people sitting around a table sharing a bucket of Lion. You don't need an occasion. In fact, you prefer not to have one. To you, every minor inconvenience, major achievement, public holiday, cricket match, long weekend, breakup, promotion, random Tuesday, or unexpected phone call presents the same solution.",
+    oneliner: "Machan, drink ekak daamu?"
+  }
+};
+
+const STATS = [
+  "Based on your answers, there is a <strong>92% chance</strong> you've said 'I'm 5 minutes away' while still in a towel.",
+  "Our research confirms you have <strong>sent at least 3 miss calls</strong> today as a form of communication.",
+  "Data shows you have <strong>rehearsed your exit strategy</strong> before arriving at a party.",
+  "Statistics indicate you've given a <strong>fake wedding timeline</strong> to at least one aunty this month.",
+  "Your results suggest there is a <strong>87% probability</strong> you know someone's drama you were never meant to know.",
+  "Analysis confirms you've <strong>judged someone's plate</strong> at a buffet without touching your own.",
+  "Our algorithm detects you've said <strong>'anything is fine'</strong> while having very strong feelings about it.",
+  "Based on behavioral patterns, you've <strong>screenshot a conversation</strong> to share in another conversation.",
+  "Evidence suggests you've quoted <strong>someone's price</strong> at a shop and then immediately bought it anyway.",
+  "Research shows you have <strong>accepted a 'small favour'</strong> that took three hours.",
+  "Our model estimates you've <strong>googled a restaurant menu</strong> before agreeing to attend the event it was at.",
+  "Statistical modelling confirms you've <strong>pretended not to see</strong> someone at a supermarket.",
+  "Data indicates you've been in a group chat that discussed a plan <strong>so long the plan expired</strong>.",
+  "Your profile suggests you've <strong>arrived at a party</strong> already planning exactly when you're leaving.",
+  "Analysis shows a <strong>94% chance</strong> you know exactly whose WhatsApp is on blue tick ignore.",
+  "Research confirms you've given someone a <strong>completely different reason</strong> for cancelling plans than the real one.",
+  "Our system detects you've done <strong>mental buffet calculations</strong> before the food has even been served.",
+  "Evidence suggests you've called someone, <strong>had nothing to say</strong>, and hung up after 90 seconds anyway.",
+  "Our model confirms you've <strong>typed a long message, deleted it,</strong> and sent 'ok lah' instead.",
+  "Based on your answers, you've <strong>given directions</strong> using a landmark that no longer exists.",
+  "Statistics show a <strong>91% likelihood</strong> you've said 'I'll sleep early tonight' at 10pm and slept at 2am.",
+  "Your results indicate you've <strong>muted a group chat</strong> but still read every message."
+];
+
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+let currentQ = 0;
+const answers = [];
+
+/* ══════════════════════════════════════
+   HELPERS
+══════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function updateProgress() {
+  const pct = (currentQ / QUESTIONS.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+function buildPips() {
+  const row = document.getElementById('qPips');
+  row.innerHTML = '';
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'q-pip' + (i < currentQ ? ' done' : i === currentQ ? ' active' : '');
+    row.appendChild(pip);
+  }
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  document.getElementById('qCounter').textContent = `QUESTION ${currentQ + 1} OF ${QUESTIONS.length}`;
+  document.getElementById('qNum').textContent = String(currentQ + 1).padStart(2, '0');
+  document.getElementById('qText').textContent = q.text;
+
+  const letters = ['A', 'B', 'C', 'D'];
+  const container = document.getElementById('qAnswers');
+  container.innerHTML = '';
+  q.answers.forEach((a, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'answer-btn';
+    btn.innerHTML = `<span class="ans-letter">${letters[i]}</span>${a.label}`;
+    btn.onclick = () => selectAnswer(i, btn);
+    container.appendChild(btn);
+  });
+
+  buildPips();
+  updateProgress();
+}
+
+function selectAnswer(idx, btn) {
+  const q = QUESTIONS[currentQ];
+
+  // Visual feedback
+  const allBtns = document.querySelectorAll('.answer-btn');
+  allBtns.forEach(b => {
+    b.classList.remove('selected');
+    b.classList.add('dimmed');
+  });
+  btn.classList.remove('dimmed');
+  btn.classList.add('selected');
+
+  answers.push(q.answers[idx].archetype);
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < QUESTIONS.length) {
+      // Animate out then in
+      const card = document.getElementById('qCard');
+      card.classList.add('exiting');
+      setTimeout(() => {
+        card.classList.remove('exiting');
+        renderQuestion();
+      }, 260);
+    } else {
+      showResult();
+    }
+  }, 420);
+}
+
+/* ══════════════════════════════════════
+   SCORING
+   1 point per selected answer. Highest score wins.
+   Tiebreaker: the archetype with the most recent
+   matching answer. If still tied, choose randomly.
+══════════════════════════════════════ */
+function calculateResult() {
+  const tally = {};
+  answers.forEach(a => { tally[a] = (tally[a] || 0) + 1; });
+
+  const max = Math.max(...Object.values(tally));
+  const winners = Object.keys(tally).filter(k => tally[k] === max);
+
+  if (winners.length === 1) return winners[0];
+
+  // Tiebreaker: most recently selected matching answer
+  for (let i = answers.length - 1; i >= 0; i--) {
+    if (winners.includes(answers[i])) return answers[i];
+  }
+
+  // Fallback: random (should not normally be reached)
+  return winners[Math.floor(Math.random() * winners.length)];
+}
+
+function showResult() {
+  const key = calculateResult();
+  const arch = ARCHETYPES[key];
+  const stat = STATS[Math.floor(Math.random() * STATS.length)];
+
+  document.getElementById('rArchetype').textContent = arch.title;
+  document.getElementById('rDesc').textContent = arch.desc;
+  document.getElementById('rStat').innerHTML = stat;
+  document.getElementById('rOneliner').textContent = `"${arch.oneliner}"`;
+
+  // Share card
+  document.getElementById('scArchetype').textContent = arch.title;
+  document.getElementById('scDesc').textContent = arch.desc;
+  document.getElementById('scOneliner').textContent = `"${arch.oneliner}"`;
+
+  document.getElementById('progressBar').style.width = '100%';
+  showScreen('screenResult');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Store for sharing
+  window._currentArch = arch;
+  window._currentKey = key;
+}
+
+/* ══════════════════════════════════════
+   ACTIONS
+══════════════════════════════════════ */
+function startQuiz() {
+  currentQ = 0;
+  answers.length = 0;
+  showScreen('screenQuestion');
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  answers.length = 0;
+  document.getElementById('progressBar').style.width = '0%';
+  showScreen('screenIntro');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openShare() {
+  document.getElementById('shareOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeShare() {
+  document.getElementById('shareOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeShareIfOutside(e) {
+  if (e.target === document.getElementById('shareOverlay')) closeShare();
+}
+
+function shareInstagram() {
+  const arch = window._currentArch;
+  if (!arch) return;
+  // Instagram doesn't support direct URL sharing — copy text and open Instagram
+  const text = `I did the Card Kudu quiz and I'm "${arch.title}"\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
+  navigator.clipboard.writeText(text).then(() => {
+    // Show a brief tooltip, then open Instagram
+    const igBtn = document.querySelector('.share-opt-ig');
+    const orig = igBtn.innerHTML;
+    igBtn.innerHTML = '<span class="share-opt-icon">✓</span> Caption copied — opening Instagram…';
+    setTimeout(() => {
+      igBtn.innerHTML = orig;
+      window.open('https://www.instagram.com/', '_blank');
+    }, 1400);
+  }).catch(() => {
+    window.open('https://www.instagram.com/', '_blank');
+  });
+}
+
+function shareWhatsApp() {
+  const arch = window._currentArch;
+  if (!arch) return;
+  const text = `I just did the Card Kudu "What Type of Sri Lankan Are You?" quiz.\n\nI got: *${arch.title}*\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function copyShareText() {
+  const arch = window._currentArch;
+  if (!arch) return;
+  const text = `I did the Card Kudu "What Type of Sri Lankan Are You?" quiz and got: ${arch.title}\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtnText');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy share text'; }, 2200);
+  });
+}
+
+// Native share if available
+document.addEventListener('DOMContentLoaded', () => {
+  if (navigator.share) {
+    const btn = document.createElement('button');
+    btn.className = 'share-opt';
+    btn.innerHTML = '<span class="share-opt-icon">🔗</span> Share via…';
+    btn.onclick = async () => {
+      const arch = window._currentArch;
+      if (!arch) return;
+      try {
+        await navigator.share({
+          title: `I am: ${arch.title}`,
+          text: `${arch.oneliner}`,
+          url: 'https://www.cardkudu.com/quiz'
+        });
+      } catch (e) {}
+    };
+    document.querySelector('.share-buttons').insertBefore(btn, document.querySelector('.share-opt'));
+  }
+});
+</script>
+</body>
+</html>
