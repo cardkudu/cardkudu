@@ -717,7 +717,7 @@ footer { background: var(--maroon-dark); padding: 1.8rem 3rem; display: flex; ju
   </a>
   <ul class="nav-links">
     <li><a href="https://www.cardkudu.com#how">How to play</a></li>
-    <li><a href="https://www.cardkudu.com/orderpage.html" class="nav-cta">Get yours — Rs. 4,390</a></li>
+    <li><a href="https://www.cardkudu.com/order.html" class="nav-cta">Get yours — Rs. 4,390</a></li>
   </ul>
 </nav>
 
@@ -844,14 +844,13 @@ footer { background: var(--maroon-dark); padding: 1.8rem 3rem; display: flex; ju
         </span>
         Share on WhatsApp
       </button>
-      <button class="share-opt" onclick="copyShareText()">
-        <span class="share-opt-icon">📋</span> <span id="copyBtnText">Copy share text</span>
-      </button>
       <button class="share-close" onclick="closeShare()">Close</button>
     </div>
   </div>
 </div>
 
+<!-- Renders the share card to a PNG so it can be handed to Instagram Stories via the native share sheet -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 /* ══════════════════════════════════════
    QUIZ DATA — 16 archetypes / 16 questions / 4 answers each
@@ -1273,23 +1272,71 @@ function closeShareIfOutside(e) {
   if (e.target === document.getElementById('shareOverlay')) closeShare();
 }
 
-function shareInstagram() {
+/* ══════════════════════════════════════
+   INSTAGRAM STORY SHARE
+   Renders the share card to a real PNG, then hands it to the
+   OS-native share sheet (navigator.share with files) so the user
+   can drop it straight into Instagram → Story in one tap. That's
+   the only way a website can push an image directly into Stories —
+   Instagram has no public web API for pre-loading a story. If the
+   browser doesn't support native file-sharing (mainly desktop),
+   we fall back to downloading the image + copying the caption and
+   opening Instagram, so the user can attach it themselves.
+══════════════════════════════════════ */
+async function shareInstagram() {
   const arch = window._currentArch;
   if (!arch) return;
-  // Instagram doesn't support direct URL sharing — copy text and open Instagram
-  const text = `I did the Card Kudu quiz and I'm "${arch.title}"\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
-  navigator.clipboard.writeText(text).then(() => {
-    // Show a brief tooltip, then open Instagram
-    const igBtn = document.querySelector('.share-opt-ig');
-    const orig = igBtn.innerHTML;
-    igBtn.innerHTML = '<span class="share-opt-icon">✓</span> Caption copied — opening Instagram…';
+
+  const igBtn = document.querySelector('.share-opt-ig');
+  const orig = igBtn.innerHTML;
+  igBtn.innerHTML = '<span class="share-opt-icon">⏳</span> Preparing your story…';
+
+  const caption = `I did the Card Kudu quiz and I'm "${arch.title}"\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
+
+  try {
+    if (typeof html2canvas !== 'function') throw new Error('html2canvas-unavailable');
+
+    const canvas = await html2canvas(document.getElementById('shareCard'), {
+      backgroundColor: '#5C1019',
+      scale: 2,
+      useCORS: true
+    });
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    const file = new File([blob], 'card-kudu-result.png', { type: 'image/png' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: `I am: ${arch.title}`,
+        text: caption
+      });
+      igBtn.innerHTML = orig;
+      return;
+    }
+
+    // No native file-share support (most desktop browsers) — save the
+    // image and copy the caption, then open Instagram to attach it.
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'card-kudu-result.png';
+    link.click();
+    URL.revokeObjectURL(link.href);
+    await navigator.clipboard.writeText(caption).catch(() => {});
+
+    igBtn.innerHTML = '<span class="share-opt-icon">✓</span> Image saved, caption copied — opening Instagram…';
     setTimeout(() => {
       igBtn.innerHTML = orig;
       window.open('https://www.instagram.com/', '_blank');
-    }, 1400);
-  }).catch(() => {
+    }, 1800);
+  } catch (e) {
+    if (e && e.name === 'AbortError') {
+      // User cancelled the native share sheet — just reset the button.
+      igBtn.innerHTML = orig;
+      return;
+    }
+    igBtn.innerHTML = orig;
     window.open('https://www.instagram.com/', '_blank');
-  });
+  }
 }
 
 function shareWhatsApp() {
@@ -1297,17 +1344,6 @@ function shareWhatsApp() {
   if (!arch) return;
   const text = `I just did the Card Kudu "What Type of Sri Lankan Are You?" quiz.\n\nI got: *${arch.title}*\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
   window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-}
-
-function copyShareText() {
-  const arch = window._currentArch;
-  if (!arch) return;
-  const text = `I did the Card Kudu "What Type of Sri Lankan Are You?" quiz and got: ${arch.title}\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copyBtnText');
-    btn.textContent = 'Copied!';
-    setTimeout(() => { btn.textContent = 'Copy share text'; }, 2200);
-  });
 }
 
 // Native share if available
