@@ -1116,6 +1116,8 @@ const STATS = [
 ══════════════════════════════════════ */
 let currentQ = 0;
 const answers = [];
+let shareImageBlob = null;
+let shareImagePromise = null;
 
 /* ══════════════════════════════════════
    HELPERS
@@ -1237,6 +1239,43 @@ function showResult() {
   // Store for sharing
   window._currentArch = arch;
   window._currentKey = key;
+
+  // Start rendering the share-card image now, in the background, so it's
+  // already sitting in memory by the time the user taps "Share to
+  // Instagram Story" — see prepareShareImage() for why this matters.
+  prepareShareImage();
+}
+
+/* ══════════════════════════════════════
+   Pre-render the share card to a PNG ahead of time.
+   iOS Safari only treats navigator.share() as a valid response to a user
+   gesture if it's called with (almost) no async delay after the click. If
+   we waited to run html2canvas inside the click handler, that render time
+   breaks the "user activation" window and Safari silently refuses to open
+   the share sheet — which is why Instagram never got the image before.
+   Rendering ahead of time means the click handler can call
+   navigator.share() with an already-ready file, keeping the gesture intact.
+══════════════════════════════════════ */
+function prepareShareImage() {
+  shareImageBlob = null;
+  shareImagePromise = (async () => {
+    if (typeof html2canvas !== 'function') return null;
+    // Give the DOM a couple of frames to paint the new share-card text
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    try {
+      const canvas = await html2canvas(document.getElementById('shareCard'), {
+        backgroundColor: '#5C1019',
+        scale: 2,
+        useCORS: true
+      });
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+      shareImageBlob = blob;
+      return blob;
+    } catch (e) {
+      return null;
+    }
+  })();
+  return shareImagePromise;
 }
 
 /* ══════════════════════════════════════
@@ -1274,12 +1313,16 @@ function closeShareIfOutside(e) {
 
 /* ══════════════════════════════════════
    INSTAGRAM STORY SHARE
-   Renders the share card to a real PNG, then hands it to the
-   OS-native share sheet (navigator.share with files) so the user
-   can drop it straight into Instagram → Story in one tap. That's
-   the only way a website can push an image directly into Stories —
-   Instagram has no public web API for pre-loading a story. If the
-   browser doesn't support native file-sharing (mainly desktop),
+   Hands a real PNG of the share card to the OS-native share sheet
+   (navigator.share with files) so the user can drop it straight into
+   Instagram → Story in one tap. That's the only way a website can push
+   an image into Stories — Instagram has no public web API for
+   pre-loading a story from a page. The image is pre-rendered in
+   prepareShareImage() (called from showResult()) specifically so that,
+   by the time this click handler runs, it can call navigator.share()
+   with no async work first — required for iOS Safari to treat it as a
+   genuine response to the tap rather than silently ignoring it. If the
+   browser doesn't support native file-sharing at all (mainly desktop),
    we fall back to downloading the image + copying the caption and
    opening Instagram, so the user can attach it themselves.
 ══════════════════════════════════════ */
@@ -1289,19 +1332,21 @@ async function shareInstagram() {
 
   const igBtn = document.querySelector('.share-opt-ig');
   const orig = igBtn.innerHTML;
-  igBtn.innerHTML = '<span class="share-opt-icon">⏳</span> Preparing your story…';
 
   const caption = `I did the Card Kudu quiz and I'm "${arch.title}"\n\n"${arch.oneliner}"\n\nAdo, what type of Sri Lankan are you?\nFind out at www.cardkudu.com/quiz`;
 
   try {
-    if (typeof html2canvas !== 'function') throw new Error('html2canvas-unavailable');
+    // Use the pre-rendered image if it's ready (the common case — it was
+    // kicked off when the result screen appeared). Only wait here if the
+    // user somehow tapped before it finished.
+    let blob = shareImageBlob;
+    if (!blob) {
+      igBtn.innerHTML = '<span class="share-opt-icon">⏳</span> Preparing your story…';
+      blob = await (shareImagePromise || prepareShareImage());
+      igBtn.innerHTML = orig;
+    }
+    if (!blob) throw new Error('image-unavailable');
 
-    const canvas = await html2canvas(document.getElementById('shareCard'), {
-      backgroundColor: '#5C1019',
-      scale: 2,
-      useCORS: true
-    });
-    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     const file = new File([blob], 'card-kudu-result.png', { type: 'image/png' });
 
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -1310,7 +1355,6 @@ async function shareInstagram() {
         title: `I am: ${arch.title}`,
         text: caption
       });
-      igBtn.innerHTML = orig;
       return;
     }
 
