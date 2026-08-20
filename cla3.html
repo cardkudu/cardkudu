@@ -87,7 +87,7 @@
   @media(max-width:768px){header,header.scrolled{padding:16px 20px;}}
   .brand{display:flex;align-items:center;gap:12px;}
   .brand .star{width:34px;height:34px;flex:none;}
-  .brand .word{font-family:var(--serif);font-size:19px;letter-spacing:0.14em;color:var(--white);}
+  .brand .word{font-family:var(--serif);font-size:19px;letter-spacing:0.14em;color:var(--white);line-height:1.05;}
   .brand .word b{color:var(--accent);font-weight:500;}
   nav.links{display:flex;gap:34px;}
   nav.links a{
@@ -225,7 +225,7 @@
   .f-list li::before{content:'—';color:var(--accent);flex:none;}
   @media(max-width:900px){
     .feature-row,.feature-row.rev{grid-template-columns:1fr;direction:ltr;}
-    .feature-row .f-text{padding:42px 6px;}
+    .feature-row .f-text{padding:42px 22px;}
   }
 
   /* ---------- wheel strip ---------- */
@@ -328,7 +328,15 @@
   .cta-banner .hero-cta{justify-content:center;}
 
   /* ---------- lead form ---------- */
-  .form-section{background:var(--panel);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+  .form-section{background:#ffffff;border-top:1px solid rgba(10,10,12,0.10);border-bottom:1px solid rgba(10,10,12,0.10);}
+  .form-section{--white:#15171a;--silver:#4d5157;--silver-dim:#82868c;--line:rgba(10,10,12,0.14);--line-soft:rgba(10,10,12,0.09);--panel:#ffffff;}
+  .form-section .field input[type=text],.form-section .field input[type=email],.form-section .field input[type=tel],.form-section .field select{color:#15171a;border-bottom-color:rgba(10,10,12,0.18);}
+  .form-section .field select option{background:#fff;color:#15171a;}
+  .form-section .perk .t b{color:#15171a;}
+  .form-section .btn-solid{background:#15171a;border-color:#15171a;color:#fff;}
+  .form-section .btn-solid:hover{background:var(--accent);border-color:var(--accent);}
+  .form-section .segmented label{border-color:rgba(10,10,12,0.14);}
+  .form-section .form-fine{color:#82868c;}
   .form-wrap{display:grid;grid-template-columns:0.9fr 1.1fr;gap:70px;align-items:flex-start;}
   @media(max-width:940px){.form-wrap{grid-template-columns:1fr;gap:40px;}}
   .form-side h2{margin-bottom:20px;}
@@ -512,7 +520,7 @@
   .light .marquee-wrap{background:var(--near-black);}
   .light .swatch .cap{color:#fff;}
   @media(max-width:900px){
-    .light .feature-row .f-text{padding:36px 6px;}
+    .light .feature-row .f-text{padding:36px 22px;}
   }
 
 
@@ -542,14 +550,25 @@ button, a, input, select, textarea {
     margin-bottom: 36px !important;
   }
 
-  /* Hero: better fit on short and narrow screens */
+  /* Hero: stack image and text on mobile so copy never sits over the photo */
   .hero {
-    min-height: 600px !important;
-    height: 100svh !important;
+    height: auto !important;
+    min-height: auto !important;
+    display: block !important;
+    padding-top: 82px !important;
+  }
+
+  .hero-media {
+    position: relative !important;
+    height: 30vh !important;
+    min-height: 220px !important;
+    max-height: 300px !important;
   }
 
   .hero-content {
-    padding: 0 22px calc(42px + env(safe-area-inset-bottom)) !important;
+    position: relative !important;
+    background: var(--black) !important;
+    padding: 14px 22px calc(42px + env(safe-area-inset-bottom)) !important;
   }
 
   .hero h1 {
